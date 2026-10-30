@@ -21,9 +21,15 @@
 | app.js | 主程式（ES5，WPS／舊手機也能跑） |
 | media.js | 美圖工作室的配樂、錄音、錄影、我的作品（進入美圖才載入） |
 | lang-zs.json | 簡體介面文字 |
-| data/idx-zh.json、data/idx-zs.json | 目錄（繁／簡） |
+| data/idx-zh.json、data/idx-zs.json、data/idx-en.json | 目錄（繁／簡／English） |
+| data/en-NN.json、lang-en.json | 英文版課文（609 篇）與英文介面 |
 | data/zh-00…12.json、data/zs-00…12.json | 全部篇章內容，每 50 篇一包 |
 | sw.js、version.json | 離線與自動更新 |
 | manifest.json、icon-*.png、apple-touch-icon*.png | 加到主畫面的圖示 |
 
 詩歌庫沿用《321互動聖經》（同網域 `../bible/music.json`），不需另外上傳音樂。
+
+
+## 更新紀錄
+- 英文版：右上角「繁｜简｜EN」切換，609 篇全文與介面、小智、朗讀（英文語音）皆有英文。
+- 小智回答選項：回答長度（簡要／適中／詳細）、慕道友六種信仰背景、可收合選項列；改長度或背景會依新設定重新回答。
