@@ -1,6 +1,6 @@
 # 321真理點心
 
-國度321空中團契・每日真理點心 PWA。599 篇（第 1–599 篇全部齊全）。
+國度321空中團契・每日真理點心 PWA。609 篇（第 1–609 篇全部齊全）。
 
 ## 上傳到 GitHub Pages
 
@@ -22,7 +22,7 @@
 | media.js | 美圖工作室的配樂、錄音、錄影、我的作品（進入美圖才載入） |
 | lang-zs.json | 簡體介面文字 |
 | data/idx-zh.json、data/idx-zs.json | 目錄（繁／簡） |
-| data/zh-00…11.json、data/zs-00…11.json | 全部篇章內容，每 50 篇一包 |
+| data/zh-00…12.json、data/zs-00…12.json | 全部篇章內容，每 50 篇一包 |
 | sw.js、version.json | 離線與自動更新 |
 | manifest.json、icon-*.png、apple-touch-icon*.png | 加到主畫面的圖示 |
 
