@@ -14,11 +14,11 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="真理點心">
-<link rel="manifest" href="manifest.json?v=2026.1031.000315">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=2026.1031.000315">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=2026.1031.000315">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2026.1031.000315">
-<link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png?v=2026.1031.000315">
+<link rel="manifest" href="manifest.json?v=2026.1031.001019">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=2026.1031.001019">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=2026.1031.001019">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2026.1031.001019">
+<link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png?v=2026.1031.001019">
 <style>
 :root{--bg:#F7F3EA;--card:#FFFFFF;--soft:#F2ECDF;--ink:#26231D;--head:#14233F;--mute:#7A7163;--line:#E6DDCB;--brand:#0D3988;--brand2:#2F5C93;--gold:#C9A15A;--gold-d:#9C7330;--gold-soft:#F6ECD6;--bad:#B4402F;--ok:#2E7D4F;--reading:#E7EDF6;
 --serif:"Noto Serif TC","Songti TC","PMingLiU","Noto Serif SC","Songti SC",Georgia,serif;--sans:-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei","PingFang SC",sans-serif;--fs:17px;--maxw:720px;
@@ -59,8 +59,9 @@ a{color:var(--brand)}
 .eyebrow{font-size:.78em;letter-spacing:1px;color:var(--gold-d);font-weight:700;margin:12px 0 6px}.card .eyebrow:first-child{margin-top:0}
 .empty{text-align:center;color:var(--mute);padding:36px 12px}
 .greet{padding:6px 2px 10px}.greet .g1{font-family:var(--serif);font-size:1.2em;color:var(--head);font-weight:700}.greet .g2{color:var(--mute);font-size:.86em}
-.hero{position:relative;overflow:hidden;border-radius:22px;padding:0 0 20px;color:#F2ECDD;background:radial-gradient(120% 90% at 90% 0%,rgba(212,166,91,.35),transparent 55%),linear-gradient(160deg,#16469C,#0D3988 45%,#071A42);box-shadow:0 10px 30px rgba(13,57,136,.25);cursor:pointer}
-.hero-img{height:clamp(170px,46vw,300px);background:#0D3988 url(hero.jpg) center 46%/cover;position:relative}.hero-img:after{content:"";position:absolute;left:0;right:0;bottom:0;height:56px;background:linear-gradient(transparent,#0D3988)}.hero-in{position:relative;z-index:1;padding:14px 20px 0}
+.hero{position:relative;overflow:hidden;border-radius:24px;padding:0 0 20px;color:#F2ECDD;background:linear-gradient(180deg,#0B3070 0%,#0B3070 68%,#081F4E 100%);box-shadow:0 10px 30px rgba(13,57,136,.25);cursor:pointer}
+.hero-img{position:relative;aspect-ratio:1/1;max-height:min(92vw,430px);width:100%;background:#0B3070 url(hero.jpg) center 46%/cover;animation:heroin 1.2s ease-out both}.hero-img:before{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 30%,transparent 55%,rgba(5,16,40,.28))}.hero-img:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:42%;background:linear-gradient(180deg,rgba(11,48,112,0) 0%,rgba(11,48,112,.55) 45%,#0B3070 100%)}@keyframes heroin{from{transform:scale(1.04);opacity:.6}}@media (prefers-reduced-motion:reduce){.hero-img{animation:none}}
+.hero-in{position:relative;z-index:1;padding:0 20px;margin-top:-64px}
 .hero:after{display:none;content:"";position:absolute;right:-50px;top:-60px;width:170px;height:170px;pointer-events:none;border-radius:50%;border:1px solid rgba(212,166,91,.35)}
 .hero-k{display:flex;justify-content:space-between;align-items:center;font-size:.82em;letter-spacing:2px;color:#E9CF98;font-weight:700}
 .hero-k span{background:rgba(255,255,255,.14);padding:3px 12px;border-radius:999px;letter-spacing:1px}
@@ -75,7 +76,8 @@ a{color:var(--brand)}
 .nextrow{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:14px;padding:12px 14px;margin:0 0 12px;cursor:pointer}
 .nextrow .ri{width:42px;height:42px;flex:0 0 42px;border-radius:12px;background:var(--gold-soft);display:flex;align-items:center;justify-content:center;font-size:1.2em}
 .nextrow .rt{flex:1;min-width:0}.nextrow .rt b{display:block;color:var(--head)}.nextrow .rt span{color:var(--mute);font-size:.84em;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chev{color:var(--mute);font-size:1.4em}
-.row2{display:flex;gap:10px;margin-bottom:6px}.tile{flex:1;min-width:0;border:1px solid var(--line);background:var(--card);border-radius:16px;padding:12px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.84em;font-weight:600;cursor:pointer;color:var(--head)}.tile span{font-size:1.5em}
+.row2{display:flex;gap:10px;margin-bottom:6px}.audgrid{display:flex;flex-wrap:wrap;gap:8px}.audgrid .chip{font-size:.9em;padding:7px 12px}.aud-tog{font-weight:600}
+.tile{flex:1;min-width:0;border:1px solid var(--line);background:var(--card);border-radius:16px;padding:12px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.84em;font-weight:600;cursor:pointer;color:var(--head)}.tile span{font-size:1.5em}
 .fcard{margin:14px 0;border-radius:20px;padding:18px;color:#fff;background:linear-gradient(155deg,#2F5C93,#12233F);box-shadow:0 6px 20px rgba(18,35,63,.18)}
 .f-h{display:flex;gap:10px;align-items:center}.f-h img{width:42px;height:42px;border-radius:12px}.f-h b{display:block;font-family:var(--serif);font-size:1.08em}.f-h span{font-size:.78em;color:#C4D3E8}
 .f-next{margin-top:14px;background:rgba(255,255,255,.08);border-radius:14px;padding:12px 14px}.f-k{font-size:.76em;letter-spacing:2px;color:#E9CF98;font-weight:700}.f-t{font-size:1.15em;font-weight:700;margin-top:2px}.f-cd{color:#E9CF98;font-size:.9em;margin-top:2px}
@@ -189,6 +191,6 @@ body.pg-read .spk,body.pg-studio .spk{bottom:calc(16px + env(safe-area-inset-bot
 <body>
 <div id="app"><div class="empty">真理點心載入中……</div></div>
 <div id="tabs"></div>
-<script src="app.js?v=2026.1031.000315"></script>
+<script src="app.js?v=2026.1031.001019"></script>
 </body>
 </html>
