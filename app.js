@@ -1,5 +1,5 @@
 /* 321真理點心 · 主程式（ES5，給 WPS／舊 WebView 也能跑） */
-var APPVER = '2026.1030.235429';
+var APPVER = '2026.1030.235753';
 var SVC = { xz: 'https://xiaozhi-proxy.spch321.workers.dev', tts: 'https://azure-tts.spch321.workers.dev', model: 'claude-sonnet-4-6' };
 var VOICES = { zh: ['zh-TW-YunJheNeural', 'zh-CN-Yunfan:DragonHDLatestNeural', 'zh-CN-Xiaochen:DragonHDLatestNeural'], zs: ['zh-CN-Yunfan:DragonHDLatestNeural', 'zh-CN-Xiaochen:DragonHDLatestNeural', 'zh-TW-YunJheNeural'] };
 var EPOCH = [2026, 9, 30];
@@ -156,9 +156,9 @@ function vHome() {
   var h = topbar('', false, '<button class="ib" data-act="font" aria-label="' + esc(T('fontB')) + '">Aa</button>');
   h += '<div class="wrap"><div class="greet"><div class="g1">' + esc(greet()) + '</div><div class="g2">' + esc(T('dateFmt', d.getMonth() + 1, d.getDate(), wk)) + '</div></div>';
   if (it) {
-    h += '<div class="hero" data-act="go" data-n="' + tn + '"><div class="hero-k">' + esc(T('todaySnack')) + '<span>' + esc(T('noFmt', tn)) + '</span></div>' +
+    h += '<div class="hero" data-act="go" data-n="' + tn + '"><div class="hero-img" role="img" aria-label="' + esc(T('appName')) + '"></div><div class="hero-in"><div class="hero-k">' + esc(T('todaySnack')) + '<span>' + esc(T('noFmt', tn)) + '</span></div>' +
       '<h2 class="hero-t">' + esc(it[1]) + '</h2><div class="hero-r">' + esc(it[2]) + '</div>' + (it[3] ? '<div class="hero-q">' + esc(it[3]) + '</div>' : '') +
-      '<div class="hero-acts"><button class="btn gold" data-act="go" data-n="' + tn + '">' + esc(T('readNow')) + ' ›</button><button class="btn ghost" data-act="golisten" data-n="' + tn + '">🔊 ' + esc(T('listen')) + '</button>' + (S.read[tn] ? '<span class="donechip">✓ ' + esc(T('readDone')) + '</span>' : '') + '</div></div>';
+      '<div class="hero-acts"><button class="btn gold" data-act="go" data-n="' + tn + '">' + esc(T('readNow')) + ' ›</button><button class="btn ghost" data-act="golisten" data-n="' + tn + '">🔊 ' + esc(T('listen')) + '</button>' + (S.read[tn] ? '<span class="donechip">✓ ' + esc(T('readDone')) + '</span>' : '') + '</div></div></div>';
   }
   var rc = readCount(), tot = IDX.length, st = streak(), pct = Math.round(rc * 100 / tot);
   h += '<div class="stats"><div class="st"><b>' + rc + '</b><span>' + esc(T('stRead', tot)) + '</span></div><div class="st"><b>' + st + '</b><span>' + esc(T('stStreak')) + '</span></div><div class="st"><b>' + cntKeys(S.star) + '</b><span>' + esc(T('stStar')) + '</span></div></div>' +
