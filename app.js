@@ -1,5 +1,5 @@
 /* 321真理點心 · 主程式（ES5，給 WPS／舊 WebView 也能跑） */
-var APPVER = '2026.1102.164546-ws23-xz1103-au1103-xzm1103-rf1105-cs1109-ub1109-nv1109';
+var APPVER = '2026.1102.164546-ws23-xz1103-au1103-xzm1103-rf1105-cs1109-ub1109-nv1109-ct1110';
 var SVC = { xz: 'https://xiaozhi-proxy.spch321.workers.dev', tts: 'https://azure-tts.spch321.workers.dev', model: 'claude-sonnet-4-6' };
 var VOICES = { zh: ['zh-TW-YunJheNeural', 'zh-CN-Yunfan:DragonHDLatestNeural', 'zh-CN-Xiaochen:DragonHDLatestNeural'], en: ['en-US-AndrewNeural', 'en-US-AvaNeural', 'en-US-BrianNeural'], zs: ['zh-CN-Yunfan:DragonHDLatestNeural', 'zh-CN-Xiaochen:DragonHDLatestNeural', 'zh-TW-YunJheNeural'] };
 var EPOCH = [2026, 9, 30];
@@ -823,9 +823,10 @@ function secLead(sec) {
   if (/禱告|祷告|Pray/i.test(t)) return isEN() ? 'Let us pray together. ' : '讓我們一起禱告。';
   return isEN() ? 'Next: ' + t + '. ' : '接下來是「' + t + '」。';
 }
-function buildQueue(root, fromTop) {
+function buildQueue(root, fromTop, startEl) {
   var els = sentList(root), from = 0, lastSec = null;
-  if (!fromTop) for (var i = 0; i < els.length; i++) { if (els[i].getBoundingClientRect().bottom > 60) { from = i; break; } }
+  if (startEl) { for (var j = 0; j < els.length; j++) { var x = els[j]; if (x === startEl || startEl.contains(x) || x.contains(startEl) || (startEl.compareDocumentPosition(x) & 4)) { from = j; break; } } }   /* 從這一段／這一句開始，一路讀到最後 */
+  else if (!fromTop) for (var i = 0; i < els.length; i++) { if (els[i].getBoundingClientRect().bottom > 60) { from = i; break; } }
   els = els.slice(from); var items = [], cur = { text: '', segs: [], lens: [], at: -1 }, MAX = isEN() ? 320 : 130;
   eachA(els, function (e) {
     var sc = secOf(e), lead = (sc && sc !== lastSec) ? secLead(sc) : ''; lastSec = sc;
@@ -846,12 +847,13 @@ function raProgress(item, ratio) {
 }
 function ttsBtnState(st) { eachA(qa('.ttsb'), function (b) { b.setAttribute('data-state', st || ''); b.innerHTML = svgI(st === 'playing' || st === 'loading' ? 'pause' : 'sound'); }); drawSpk(); }
 /* root：要朗讀的範圍；fromTop：從範圍開頭（否則從畫面可見處） */
-function ttsPage(root, fromTop, title) {
+function ttsPage(root, fromTop, title, startEl) {
   if (spk.on) { stopAll(); return; } ttsUnlock();
-  var items = buildQueue(root || hlRoot(), fromTop); if (!items.length) return;
+  var items = buildQueue(root || hlRoot(), fromTop, startEl); if (!items.length) return;
   spk = { on: true, items: items, idx: 0, cache: {}, native: false, abort: false, title: title || '' }; ttsBtnState('loading'); keepAwake(true); mediaSession(title); ttsPlayFrom(0);
 }
-function ttsSec(btn) { var sec = btn; while (sec && !(sec.className && String(sec.className).indexOf('sec') >= 0)) sec = sec.parentNode; ttsPage(sec || hlRoot(), true, (window.LCUR && LCUR.title) || ''); }
+/* ct1110：段落的 🔊 從這一段開始一路讀到整篇結束（不必每段再點） */
+function ttsSec(btn) { var sec = btn; while (sec && !(sec.className && String(sec.className).indexOf('sec') >= 0)) sec = sec.parentNode; ttsPage(hlRoot(), true, (window.LCUR && LCUR.title) || '', sec || null); }
 function ttsPrefetch(i, cb) { var it = spk.items[i]; if (!it || spk.cache[i] !== undefined) { if (cb) cb(); return; } spk.cache[i] = 0; ttsFetch(ttsPrep(it.text), function (u) { spk.cache[i] = u; if (cb) cb(); }, i === 0 || ttsDownUntil > 0); }
 function ttsPlayFrom(i) {
   if (!spk.on || spk.abort) return; ttsWdClear(); if (i >= spk.items.length) { stopAll(); return; }
@@ -1571,7 +1573,7 @@ document.addEventListener('click', function (e) {
   else if (a === 'wdsent') wdAsk('sent');
   else if (a === 'wdverse') wdAsk('verse');
   else if (a === 'hlcard') { hlNoteGrab(); var h2 = hlCur.h; openStudio({ t: h2.t, ref: h2.ref, n: h2.n }); }
-  else if (a === 'hlread') { speakText(hlCur.h.t, 'hl'); }
+  else if (a === 'hlread') { var hEl = hlCur && hlCur.el; closeHSheet(); stopAll(); if (hEl && hEl.parentNode) ttsPage(hlRoot(), true, (window.LCUR && LCUR.title) || '', hEl); else speakText(hlCur.h.t, 'hl'); }
   else if (a === 'hlcopy') { copyText(hlShareText(hlCur.h)); }
   else if (a === 'hlshare') { hlNoteGrab(); shareText(hlShareText(hlCur.h)); }
   else if (a === 'hldel') { if (confirm(T('delHl'))) { delete S.hl[hlCur.k]; save(); closeHSheet(); paintHl(hlRoot()); } }
