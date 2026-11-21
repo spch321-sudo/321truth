@@ -1,5 +1,5 @@
 /* 321真理點心 · 主程式（ES5，給 WPS／舊 WebView 也能跑） */
-var APPVER = '2026.1102.164546-ws23-xz1103-au1103-xzm1103-rf1105-cs1109-ub1109-nv1109-ct1110-lg1111-br1119-ad1121';
+var APPVER = '2026.1102.164546-ws23-xz1103-au1103-xzm1103-rf1105-cs1109-ub1109-nv1109-ct1110-lg1111-br1119-ad1121b';
 var SVC = { xz: 'https://xiaozhi-proxy.spch321.workers.dev', tts: 'https://azure-tts.spch321.workers.dev', model: 'claude-sonnet-4-6' };
 var VOICES = { zh: ['zh-TW-YunJheNeural', 'zh-CN-Yunfan:DragonHDLatestNeural', 'zh-CN-Xiaochen:DragonHDLatestNeural'], en: ['en-US-AndrewNeural', 'en-US-AvaNeural', 'en-US-BrianNeural'], zs: ['zh-CN-Yunfan:DragonHDLatestNeural', 'zh-CN-Xiaochen:DragonHDLatestNeural', 'zh-TW-YunJheNeural'] };
 var EPOCH = [2026, 9, 30];
@@ -239,7 +239,7 @@ function vList() {
   h += '<div class="search"><input type="search" id="lq" value="' + esc(LST.q) + '" placeholder="' + esc(T('searchPH')) + '"><button class="btn sm" data-act="fulls">' + esc(T('fullSearch')) + '</button></div>';
   h += '<div class="chips">'; eachA([['all', T('fAll')], ['un', T('fUnread')], ['rd', T('fRead')], ['st', T('fStar')]], function (f) { h += '<button class="chip' + (LST.f === f[0] ? ' on' : '') + '" data-act="lf" data-v="' + f[0] + '">' + esc(f[1]) + '</button>'; }); h += '</div>';
   h += '<div class="chips segs"><button class="chip' + (LST.seg < 0 ? ' on' : '') + '" data-act="lseg" data-v="-1">' + esc(T('segAll')) + '</button>';
-  for (var s = 0; s < 6; s++) h += '<button class="chip' + (LST.seg === s ? ' on' : '') + '" data-act="lseg" data-v="' + s + '">' + (s * 100 + 1) + '–' + (s * 100 + 100) + '</button>';
+  for (var s = 0, nseg = Math.ceil(((IDX && IDX.length) ? IDX[IDX.length - 1][0] : 600) / 100); s < nseg; s++) h += '<button class="chip' + (LST.seg === s ? ' on' : '') + '" data-act="lseg" data-v="' + s + '">' + (s * 100 + 1) + '–' + (s * 100 + 100) + '</button>';
   h += '</div><div id="lrows"></div></div>';
   setApp(h, true); paintList();
   var q = $('#lq'); q.oninput = function () { LST.q = q.value; LST.hits = null; clearTimeout(q.t); q.t = setTimeout(paintList, 160); };
