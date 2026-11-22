@@ -47,7 +47,7 @@ a{color:var(--brand)}
 .ib[data-state="playing"],.ib[data-state="loading"]{background:var(--brand);color:#fff;border-color:var(--brand)}
 .langswitch{flex:none;display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card)}
 .langswitch button{border:0;background:none;padding:6px 11px;font-size:.82em;cursor:pointer}.langswitch button.active{background:var(--brand);color:#fff}
-.tabs{position:fixed;left:0;right:0;bottom:0;z-index:45;display:flex;justify-content:center;background:var(--card);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
+.tabs{position:fixed;left:0;right:0;bottom:var(--vvb,0px);z-index:45;display:flex;justify-content:center;background:var(--card);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
 .tabs:empty{display:none}
 .tab{flex:1;max-width:160px;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:.78em;color:var(--mute);cursor:pointer;padding:4px 0}
 .tab .ti{font-size:1.5em;line-height:1.2;filter:grayscale(.6);opacity:.75}.tab.on{color:var(--brand);font-weight:700}.tab.on .ti{filter:none;opacity:1}
@@ -149,7 +149,7 @@ a{color:var(--brand)}
 .medals{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.md{text-align:center;border:1px solid var(--line);border-radius:14px;padding:10px 2px;opacity:.45}.md b{display:block;font-family:Georgia,serif;font-size:1.3em;color:var(--mute)}.md span{font-size:.66em}.md.on{opacity:1;background:var(--gold-soft);border-color:var(--gold)}.md.on b{color:var(--gold-d)}
 .toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;z-index:95;background:rgba(20,26,36,.92);color:#fff;padding:10px 18px;border-radius:999px;font-size:.88em;transition:all .25s;max-width:88vw;text-align:center}.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .updbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(76px + env(safe-area-inset-bottom));z-index:90;background:var(--brand);color:#fff;padding:10px 18px;border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-weight:600;white-space:nowrap;cursor:pointer}
-.spk{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(70px + env(safe-area-inset-bottom));z-index:60;display:flex;align-items:center;gap:6px;background:var(--head);color:var(--bg);border-radius:999px;padding:6px 8px 6px 16px;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:94vw}
+.spk{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(70px + var(--vvb,0px) + env(safe-area-inset-bottom));z-index:60;display:flex;align-items:center;gap:6px;background:var(--head);color:var(--bg);border-radius:999px;padding:6px 8px 6px 16px;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:94vw}
 body.pg-read .spk,body.pg-studio .spk{bottom:calc(16px + env(safe-area-inset-bottom))}
 .spk .t{font-size:.84em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.spk button{flex:none;border:0;background:rgba(255,255,255,.14);color:inherit;width:36px;height:36px;border-radius:50%;cursor:pointer}
 .xz{position:fixed;inset:0;z-index:80;display:none;background:rgba(10,18,32,.42)}.xz.on{display:flex;align-items:flex-end;justify-content:center}
@@ -207,8 +207,8 @@ body.pg-read .spk,body.pg-studio .spk{bottom:calc(16px + env(safe-area-inset-bot
 <div id="app"><div class="empty">真理點心載入中……</div></div>
 <div id="tabs"></div>
 <script src="xz2.js?v=xz1103"></script>
-<script src="app.js?v=2026.1102.164546-ws23-xz1103-au1103-xzm1103-rf1105-cs1109-ub1109-nv1109-ct1110-lg1111-br1119-ad1122"></script>
-<script src="cpar.js?v=2026.1102.164546-ws23-xz1103-au1103-xzm1103-rf1105-cs1109-ub1109-nv1109-ct1110-lg1111-br1119-ad1122"></script>
+<script src="app.js?v=2026.1102.164546-ws23-xz1103-au1103-xzm1103-rf1105-cs1109-ub1109-nv1109-ct1110-lg1111-br1119-ad1122b"></script>
+<script src="cpar.js?v=2026.1102.164546-ws23-xz1103-au1103-xzm1103-rf1105-cs1109-ub1109-nv1109-ct1110-lg1111-br1119-ad1122b"></script>
 <script src="xzm.js?v=xzm1103"></script>
 <script src="bref.js?v=br1119"></script>
 <script>try{XZM.install(XZM.preset.lesson());}catch(e){}</script>

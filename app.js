@@ -1,5 +1,5 @@
 /* 321真理點心 · 主程式（ES5，給 WPS／舊 WebView 也能跑） */
-var APPVER = '2026.1102.164546-ws23-xz1103-au1103-xzm1103-rf1105-cs1109-ub1109-nv1109-ct1110-lg1111-br1119-ad1122';
+var APPVER = '2026.1102.164546-ws23-xz1103-au1103-xzm1103-rf1105-cs1109-ub1109-nv1109-ct1110-lg1111-br1119-ad1122b';
 var SVC = { xz: 'https://xiaozhi-proxy.spch321.workers.dev', tts: 'https://azure-tts.spch321.workers.dev', model: 'claude-sonnet-4-6' };
 var VOICES = { zh: ['zh-TW-YunJheNeural', 'zh-CN-Yunfan:DragonHDLatestNeural', 'zh-CN-Xiaochen:DragonHDLatestNeural'], en: ['en-US-AndrewNeural', 'en-US-AvaNeural', 'en-US-BrianNeural'], zs: ['zh-CN-Yunfan:DragonHDLatestNeural', 'zh-CN-Xiaochen:DragonHDLatestNeural', 'zh-TW-YunJheNeural'] };
 var EPOCH = [2026, 9, 30];
@@ -2053,4 +2053,17 @@ TTS_FIX.push([/降服/g, '祥服'], [/朝著/g, '潮著'], [/朝着/g, '潮着']
   initUpdate();
   loadVids();
   setTimeout(function () { if (S.set.human && navigator.onLine !== false) ajax('POST', SVC.tts, { voice: voiceName(), rate: '+0%', sil: 0, silc: 0, sile: 0, text: '。' }, 'arraybuffer', function () { }); }, 1200);
+})();
+
+/* 固定在底部的面板（分頁列、朗讀列）：iOS 有時版面視窗比實際畫面短，固定元素會飄在半空；依 visualViewport 補差，回到畫面最底 */
+(function () {
+  var vv = window.visualViewport, raf = 0; if (!vv) return;
+  function fix() {
+    raf = 0; var d = 0;
+    if (Math.abs(vv.scale - 1) < 0.02) d = Math.round(window.innerHeight - (vv.offsetTop + vv.height));
+    if (d > 0 || d < -400) d = 0;
+    document.documentElement.style.setProperty('--vvb', d + 'px');
+  }
+  function q() { if (!raf) raf = requestAnimationFrame(fix); }
+  vv.addEventListener('resize', q); vv.addEventListener('scroll', q); window.addEventListener('scroll', q, { passive: true }); window.addEventListener('orientationchange', q); window.addEventListener('pageshow', q); fix();
 })();
