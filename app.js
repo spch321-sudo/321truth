@@ -1,5 +1,5 @@
 /* 321真理點心 · 主程式（ES5，給 WPS／舊 WebView 也能跑） */
-var APPVER = '2026.1102.164546-ws23-xz1103-au1103-xzm1103-rf1105-cs1109-ub1109-nv1109-ct1110-lg1111-br1119-ad1122b';
+var APPVER = '2026.1102.164546-ws23-xz1103-au1103-xzm1103-rf1105-cs1109-ub1109-nv1109-ct1110-lg1111-br1119-ad1126';
 var SVC = { xz: 'https://xiaozhi-proxy.spch321.workers.dev', tts: 'https://azure-tts.spch321.workers.dev', model: 'claude-sonnet-4-6' };
 var VOICES = { zh: ['zh-TW-YunJheNeural', 'zh-CN-Yunfan:DragonHDLatestNeural', 'zh-CN-Xiaochen:DragonHDLatestNeural'], en: ['en-US-AndrewNeural', 'en-US-AvaNeural', 'en-US-BrianNeural'], zs: ['zh-CN-Yunfan:DragonHDLatestNeural', 'zh-CN-Xiaochen:DragonHDLatestNeural', 'zh-TW-YunJheNeural'] };
 var EPOCH = [2026, 9, 30];
@@ -2047,7 +2047,26 @@ setInterval(function () { BUSY = isBusy(); updIdle(); }, 20000);
 TTS_FIX.push([/降服/g, '祥服'], [/朝著/g, '潮著'], [/朝着/g, '潮着'], [/臉朝/g, '臉潮'], [/脸朝/g, '脸潮'], [/省察/g, '醒察'], [/反省/g, '反醒'], [/自省/g, '自醒'], [/相稱/g, '相趁'], [/相称/g, '相趁'], [/曾孫/g, '增孫'], [/曾孙/g, '增孙'], [/便雅憫/g, '變雅憫'], [/便雅悯/g, '变雅悯']);
 
 /* ---------- 開機 ---------- */
+/* 記住最後閱讀的頁面：從互動聖經／其他 App 切回、或 App 被系統收掉重開時，回到原本閱讀的課，而不是首頁（6 小時內） */
+var LASTK = 'ts321.last';
+function lastGet() { try { var o = JSON.parse(localStorage.getItem(LASTK) || 'null'); if (o && o.h && Date.now() - o.t < 6 * 3600 * 1000) return o; } catch (e) { } return null; }
+function lastSet(o) { try { if (o) localStorage.setItem(LASTK, JSON.stringify(o)); else localStorage.removeItem(LASTK); } catch (e) { } }
+var LAST_Y = 0;
+function lastSave() { var p = R.page; if (p && (p.t === 'read' || p.t === 'quiz')) lastSet({ h: location.hash, t: Date.now(), y: Math.round(window.scrollY || 0) }); else if (p && p.t === 'home' && !LAST_BOOT) lastSet(null); }
+var LAST_BOOT = true;
+window.addEventListener('hashchange', function () { LAST_BOOT = false; setTimeout(lastSave, 0); });
+window.addEventListener('scroll', function () { if (LAST_Y) clearTimeout(LAST_Y); LAST_Y = setTimeout(function () { LAST_Y = 0; if (!LAST_BOOT) lastSave(); }, 400); }, { passive: true });
+document.addEventListener('visibilitychange', function () { if (document.hidden && !LAST_BOOT) lastSave(); });
+window.addEventListener('pagehide', function () { if (!LAST_BOOT) lastSave(); });
 (function boot() {
+  var lo = null;
+  if (!location.hash || location.hash === '#' || location.hash === '#/') {
+    lo = lastGet();
+    if (lo && /^#\/(read|quiz)\/\d+$/.test(lo.h)) { try { history.replaceState(history.state, '', location.pathname + location.search + lo.h); } catch (e) { location.hash = lo.h; } } else lo = null;
+  }
+  LAST_BOOT = false;
+  if (lo && lo.y > 0) setTimeout(function () { window.scrollTo(0, lo.y); }, 900);
+  setTimeout(lastSave, 1500);
   applyChrome();
   loadPack(L(), function () { applyChrome(); render(); });
   initUpdate();
